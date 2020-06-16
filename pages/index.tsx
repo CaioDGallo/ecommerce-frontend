@@ -1,10 +1,12 @@
 import Header from "../components/Header"
 import ProductList from "../components/ProductList"
-import { IProduct } from "../components/Product"
+import { Product as IProduct } from "../store/product/types"
 import Footer from "../components/Footer"
 import Contact from "../components/Contact"
 import Head from "next/head"
 import api from '../services/api'
+import { Provider } from 'react-redux'
+import store from '../store'
 
 import "../style/global.scss"
 
@@ -14,26 +16,26 @@ interface IIndexProps {
 
 const Index = (props: IIndexProps) => {
   return (
-    <div className="app">
-      <Head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" data-api-key="MzMxN2Y0ODMtOWNhMy00YzUzLWFiNTYtZjMwZTRkZDcxYzM4" id="snipcart"></script>
-        <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" rel="stylesheet" type="text/css" />
-        <link rel="shortcut icon" href="/static/favicon.ico" />
-      </Head>
-      <Header />
-      <main className="main">
-        <img src="/aquarium.svg" alt="a" className="background-image" />
-        <div className="promotional-message">
-          <h3>PRODUTOS</h3>
-          <h2>Artesanais</h2>
-          <p>Uma <strong>coleção exclusiva de produtos</strong> artesanais e sustentáveis.</p>
-        </div>
-        <ProductList products={props.products} />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <Provider store={store}>
+      <div className="app">
+        <Head>
+          <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" rel="stylesheet" type="text/css" />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
+        </Head>
+        <Header />
+        <main className="main">
+          <img src="/aquarium.svg" alt="a" className="background-image" />
+          <div className="promotional-message">
+            <h3>PRODUTOS</h3>
+            <h2>Artesanais</h2>
+            <p>Uma <strong>coleção exclusiva de produtos</strong> artesanais e sustentáveis.</p>
+          </div>
+          <ProductList products={props.products} />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </Provider>
   )
 }
 

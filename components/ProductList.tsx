@@ -1,7 +1,10 @@
-import Product, { IProduct } from "./Product"
+import Product from "./Product"
+import { Product as IProduct } from '../store/product/types'
+
 interface IProductListProps {
   products: IProduct[]
 }
+
 const ProductList = (props: IProductListProps) => {
   return (
     <div className="product-list">

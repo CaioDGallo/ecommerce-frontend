@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Cart from "./Cart";
 
 export default function Header() {
   return (
@@ -12,6 +13,8 @@ export default function Header() {
       <a className="header__summary snipcart-checkout snipcart-summary" href="#" style={{textDecoration: "none"}}>
         <span className="header__price snipcart-total-price"></span>
       </a>
+
+      <Cart />
     </header>
   )
 }
