@@ -30,7 +30,7 @@ const Product = (props: IProductProps) => {
 function addProductToCart(dispatch, product: IProduct){
   console.log(product)
   dispatch({
-    type: ProductsTypes.ADD_PRODUCT_TO_CART,
+    type: ProductsTypes.ADD_NEW_PRODUCT_TO_CART,
     data: product
   })
 }

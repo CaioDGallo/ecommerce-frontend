@@ -1,17 +1,22 @@
-import { Product, ProductsTypes, ProductsState } from '../store/product/types'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react';
-import CartItem from './CartItem'
+import CartModal from "./CartModal"
+import { useSelector } from "react-redux"
+import { ProductsState } from "../store/product/types"
+import { useState } from "react"
 
 export default function Cart() {
-    const products: Product[] = useSelector((state: ProductsState) => state.data);
-    const totalPrice: number = useSelector((state: ProductsState) => state.totalPrice);
-    
+    const [parentModalReference, setParentModalReference] = useState(null)
+    const numberOfProducts = useSelector((state: ProductsState) => state.amountOfProducts)
+
+    var callbackFunction = (modal) => {
+        setParentModalReference(modal)
+    }
+
     return (
-        <ul>
-            {products.map(product => (<CartItem key={product._id} product={product}/>))}
-            <p>{totalPrice}</p>            
-        </ul>
+        <>
+            <img className="header__summary" onClick={() => parentModalReference.current.style.display = "block"} width="38" height="38" src={"/shopping_cart.png"} alt="" />
+            <p>{numberOfProducts}</p>
+            <CartModal parentCallback={callbackFunction} />
+        </>
     );
 
 }
