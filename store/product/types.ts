@@ -25,7 +25,13 @@ export interface CartProduct {
 
 //State Type
 export interface ProductsState{
-    readonly data: CartProduct[]
+    readonly products: CartProduct[]
     readonly totalPrice: number
     readonly amountOfProducts: number
+}
+
+//Action Type
+export interface ProductsAction{
+    readonly cartProduct: CartProduct
+    readonly type: ProductsTypes
 }
