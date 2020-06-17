@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
+
+$color-purple: #9094FF;
+$color-light-grey: #EBEBEB;
+$color-dark: #343434;
+$max-width: 1000px;
+
+@mixin centered {
+  width: 100%;
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include smallerThanDesktop {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: '600px') {
+      @content;
+  }
+}
+
+@mixin smallerThanDesktop {
+  @media (max-width: '1000px') {
+      @content;
+  }
+}
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.background__image {
+  position: absolute;
+  opacity: 0.02;
+  left: -10vw;
+  top: -10vh;
+  height: 75vh;
+  transform: rotate(20deg);
+  pointer-events: none;
+}
+
+.promotional__message {
+  margin-bottom: 100px;
+  margin-top: 25px;
+  text-align: center;
+
+  h3 {
+    font-size: 20px;
+    line-height: normal;
+    text-align: center;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 80px;
+    @include mobile { font-size: 50px; }
+    margin: 0;
+    color: $color-purple;
+  }
+}

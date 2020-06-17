@@ -1,7 +1,9 @@
-import CartModal from "./CartModal"
+import CartModal from "../CartModal/CartModal"
 import { useSelector } from "react-redux"
-import { ProductsState } from "../store/product/types"
+import { ProductsState } from "../../store/product/types"
 import { useState } from "react"
+
+import styles from './cart.module.scss'
 
 export default function Cart() {
     const [parentModalReference, setParentModalReference] = useState(null)
@@ -12,11 +14,11 @@ export default function Cart() {
     }
 
     return (
-        <>
-            <img className="header__summary" onClick={() => parentModalReference.current.style.display = "block"} width="38" height="38" src={"/shopping_cart.png"} alt="" />
+        <div className={styles.cart__container}>
             <p>{numberOfProducts}</p>
+            <img onClick={() => parentModalReference.current.style.display = "block"} width="38" height="38" src={"/shopping_cart.png"} alt="" />
             <CartModal parentCallback={callbackFunction} />
-        </>
+        </div>
     );
 
 }

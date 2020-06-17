@@ -1,0 +1,15 @@
+.footer {
+    color: white;
+    background: linear-gradient(90deg, #707070 0%, #474747 100%);
+    height: 50px;
+    display: flex;
+    align-items: center;
+
+    a {
+      color: white;
+    }
+    p {
+      text-align: center;
+      flex-grow: 1;
+    }
+  }

@@ -1,13 +1,12 @@
-
-import { CartProduct, ProductsState } from '../store/product/types'
+import { CartProduct, ProductsState } from '../../store/product/types'
 import { useSelector } from 'react-redux'
-import CartItem from './CartItem'
+import CartItem from '../CartItem/CartItem'
 
-import './CartModal.module.scss'
+import styles from './cart_modal.module.scss'
 import { useEffect, useRef } from 'react'
 
 export default function CartModal({ parentCallback }) {
-    const products: CartProduct[] = useSelector((state: ProductsState) => state.data)
+    const products: CartProduct[] = useSelector((state: ProductsState) => state.products)
     const totalPrice: number = useSelector((state: ProductsState) => state.totalPrice)
 
     let modal = useRef(null);
@@ -23,13 +22,13 @@ export default function CartModal({ parentCallback }) {
     }
 
     return (
-        <div id="cart_modal" className="modal" ref={modal} onClick={(event) => closeModal(modal, event)}>
-            <div className="modal__content">
-                <span onClick={(event) => closeModal(modal, event)} className="close" id="close_modal">&times;</span>
-                <ul>
+        <div id="cart_modal" className={styles.modal} ref={modal} onClick={(event) => closeModal(modal, event)}>
+            <div className={styles.modal__content}>
+                <span onClick={(event) => closeModal(modal, event)} className={styles.close} id="close_modal">&times;</span>
+                <ul className={styles.cart_products_list}>
                     {products.map(product => (<CartItem key={product._id} product={product} />))}
-                    <p>{totalPrice}</p>
                 </ul>
+                <p>{totalPrice}</p>
             </div>
         </div>
     );
