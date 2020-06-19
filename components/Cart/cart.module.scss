@@ -1,0 +1,14 @@
+.cart__container{
+    display:flex;
+    flex-direction: row;
+    .products__amount{
+        font-weight: bold;
+        color: #9094FF;
+    }
+}
+
+p{
+    margin: 0;
+    padding: 6px;
+    align-self: center;
+}
