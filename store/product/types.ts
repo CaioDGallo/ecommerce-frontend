@@ -21,6 +21,7 @@ export interface CartProduct {
     title: string
     price: number
     amount: number
+    imagePath: string
 }
 
 //State Type

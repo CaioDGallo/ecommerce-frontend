@@ -36,7 +36,8 @@ function addProductToCart(dispatch, product: IProduct){
       _id: product._id,
       title: product.title,
       price: product.price,
-      amount: 1
+      amount: 1,
+      imagePath: "/" + product.imagePath + ".jpg"
     },
   }
   dispatch(addProductToCartAction)
