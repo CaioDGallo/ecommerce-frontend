@@ -10,23 +10,41 @@ import { Provider } from 'react-redux'
 import store from '../store'
 
 import styles from "../style/home_page.module.scss"
+import { useEffect, useState } from "react"
 
 interface IIndexProps {
   products: IProduct[]
 }
 
 const Index = (props: IIndexProps) => {
+  const [products, setProducts] = useState(props.products)
+
+  useEffect(() => {
+    setProducts(props.products)
+
+    async function loadProductsFromAPI(){
+      if(products.length == 0){
+        try {
+          const apiResponse = await api.get('/products')
+          setProducts(apiResponse.data as IProduct[])
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+    
+    loadProductsFromAPI()
+  })
+
   return (
     <Layout>
       <Provider store={store}>
         <div className={styles.app}>
           <Head>
-            <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" rel="stylesheet" type="text/css" />
-            <link rel="shortcut icon" href="/static/favicon.ico" />
+            <link rel="shortcut icon" href="/favicon.ico" />
           </Head>
           <Header />
           <main className="main">
-            <img src="/aquarium.svg" alt="a" className={styles.background__image} />
             <div className={styles.promotional__message}>
               <h3>PRODUTOS</h3>
               <h2>Artesanais</h2>
