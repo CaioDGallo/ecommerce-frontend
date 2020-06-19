@@ -35,16 +35,6 @@ $max-width: 1000px;
   grid-template-rows: auto 1fr auto;
 }
 
-.background__image {
-  position: absolute;
-  opacity: 0.02;
-  left: -10vw;
-  top: -10vh;
-  height: 75vh;
-  transform: rotate(20deg);
-  pointer-events: none;
-}
-
 .promotional__message {
   margin-bottom: 100px;
   margin-top: 25px;
