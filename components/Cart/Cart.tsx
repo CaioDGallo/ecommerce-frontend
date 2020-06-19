@@ -16,7 +16,7 @@ export default function Cart() {
 
     return (
         <div className={styles.cart__container}>
-            <p>{numberOfProducts}</p>
+            <p className={styles.products__amount}>{numberOfProducts}</p>
             <img onClick={handleClick} width="38" height="38" src={"/shopping_cart.png"} alt="" />
             <CartModal modalReference={modalReference} />
         </div>

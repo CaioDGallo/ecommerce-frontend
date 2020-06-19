@@ -17,7 +17,7 @@ export default function CartModal({ modalReference }) {
     }
 
     function closeModal(modal, event) {
-        if (event.target.id == "cart_modal" || event.target.id == "close_modal") {
+        if (event.target.id == "cart_modal_open" || event.target.id == "close_modal") {
             setShowing(false)
         }
     }

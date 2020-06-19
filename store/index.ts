@@ -45,7 +45,7 @@ function findProductById(state: ProductsState, prdct: CartProduct, add: boolean)
                 } else if (state.products[index].amount == 1) {
                     //Removing product from cart
                     state.products[index].amount -= 1
-                    state = { ...state, totalPrice: state.totalPrice - product.price }
+                    state = { ...state, totalPrice: state.totalPrice - product.price, amountOfProducts: state.amountOfProducts - 1 }
                     state = removeProductFromCart(state, state.products[index])
                 }
             }
