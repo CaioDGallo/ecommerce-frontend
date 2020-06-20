@@ -1,3 +1,5 @@
+$color-black: #000;
+
 @mixin mobile {
     @media (max-width: '600px') {
         @content;
@@ -42,13 +44,14 @@
     background-color: rgba(0, 0, 0, 0); 
     color: white;
   }
-  
+    
   /* Modal Content */
   .modal__content__hidden {
     display: flex;
     flex-direction: column;
-    background-color: #1b1a20;
+    background-color: #f5f5f5;
     padding: 0;
+    color: $color-black;
     width: 35%;
     height: 50vh;
     left: 50%;
@@ -59,6 +62,11 @@
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
     position: absolute;
+    @include smallerThanDesktop{
+        width: 60%;
+        left: 50%;
+        margin-left: -30%;
+    }
     @include mobile{
       width: 100%;
       right: -100%;
@@ -70,7 +78,8 @@
   .modal__content__open {
     display: flex;
     flex-direction: column;
-    background-color: #1b1a20;
+    background-color: #f5f5f5;
+    color: $color-black;
     padding: 0;
     margin: 0;
     width: 35%;
