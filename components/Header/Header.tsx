@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Cart from "../Cart/Cart";
+import Modal, { ModalTypes } from "../Modal/Modal";
 
 import styles from './header.module.scss'
 import NavAccountOptions from "../NavAccountOptions/NavAccountOptions";
@@ -16,8 +16,8 @@ export default function Header() {
         </Link>
       </div>
 
-      <Cart />
-      <NavAccountOptions />
+      <Modal modalType={ModalTypes.CART_MODAL} />
+      <Modal modalType={ModalTypes.LOGIN_MODAL} />
     </header>
   )
 }
