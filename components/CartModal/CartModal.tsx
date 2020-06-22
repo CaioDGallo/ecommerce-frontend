@@ -1,6 +1,7 @@
 import { CartProduct, ProductsState } from '../../store/product/types'
 import { useSelector } from 'react-redux'
 import CartItem from '../CartItem/CartItem'
+import api from '../../services/api'
 
 import styles from './cart_modal.module.scss'
 import { useState } from 'react'
@@ -11,14 +12,18 @@ export default function CartModal() {
     const totalPrice: number = useSelector((state: ProductsState) => state.totalPrice)
     const [showing, setShowing] = useState(false)
 
-    const openModal = (): void => {
+    const openModal = async (): Promise<void> => {
         setShowing(true)
     }
 
-    function closeModal(event): void {
+    async function closeModal(event): Promise<void> {
         if (event.target.id == "cart_modal_open" || event.target.id == "close_modal") {
             setShowing(false)
         }
+        const response = await api.post("/auth/refreshToken", {}, {
+            withCredentials: true
+           })
+        console.log(response)
     }
 
     return (
