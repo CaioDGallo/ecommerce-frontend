@@ -1,6 +1,6 @@
 import Layout from '../components/Layout//Layout'
 import ProductList from "../components/ProductList/ProductList"
-import { Product as IProduct } from "../store/product/types"
+import { Product as IProduct } from "../store/cart/types"
 import Contact from "../components/Contact/Contact"
 import api from '../services/api'
 

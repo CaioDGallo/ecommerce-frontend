@@ -1,4 +1,4 @@
-import { CartProduct, ProductsTypes, ProductsAction } from '../../store/product/types'
+import { CartProduct, ProductsTypes, ProductsAction } from '../../store/cart/types'
 import { useDispatch } from 'react-redux'
 
 import styles from './cart_item.module.scss'

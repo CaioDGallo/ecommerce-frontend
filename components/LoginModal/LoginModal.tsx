@@ -5,6 +5,8 @@ import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core'
 import { IModalTypeProps } from '../Modal/Modal'
 import api from '../../services/api'
+import { useDispatch } from 'react-redux';
+import { AuthTypes, AuthAction } from '../../store/auth/types';
 
 interface ISignIn {
     email_signin: string
@@ -20,6 +22,7 @@ export default function LoginModal(props: IModalTypeProps) {
     const [showing, setShowing] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const formRef = useRef<FormHandles>(null);
+    const dispatch = useDispatch()
 
     const openModal = (): void => {
         setShowing(true)
@@ -35,14 +38,23 @@ export default function LoginModal(props: IModalTypeProps) {
         }
     }
 
-    function successfulSignIn(){
+    function successfulSignIn(user){
+        const refreshTokeAction: AuthAction = {
+            type: AuthTypes.REFRESH_TOKEN,
+            refreshToken: null,
+            actionUser: {
+                _id: user._id,
+                username: user.usermame,
+                access_token: user.accessToken
+            },
+        }
+        dispatch(refreshTokeAction)
         closeModal()
     }
 
     useImperativeHandle(props.modalReference, () => ({ openModal }))
 
     const handleSignInSubmit: SubmitHandler<ISignIn> = async (data: ISignIn) => {
-        console.log(data.email_signin);
         const signIn = { username: data.email_signin, password: data.password_signin }
         //Test Credentials caiogallo88 @Test123
         
@@ -51,13 +63,13 @@ export default function LoginModal(props: IModalTypeProps) {
             console.log(response);
             if (response.status == 201) {
                 //success - dismiss modal and do the needed changes
-                successfulSignIn()
+                successfulSignIn(response.data)
             } else {
                 setErrorMessage(response.data.message)
             }
         })
         .catch((error) => {
-            console.log(error.response);
+            console.log(error);
             setErrorMessage(error.response.data.message)
         })
     };
@@ -72,7 +84,7 @@ export default function LoginModal(props: IModalTypeProps) {
                 const response_signin = await api.post("/auth/signin", { username: data.email_signup, password: data.password_signup }, { withCredentials: true })
                 console.log(response_signin)
                 if (response.status == 201) {
-                    successfulSignIn()
+                    successfulSignIn(response.data)
                 }else{
                     setErrorMessage(response.data.message)
                 }

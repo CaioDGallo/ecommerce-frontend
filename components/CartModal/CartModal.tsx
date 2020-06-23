@@ -1,15 +1,16 @@
-import { CartProduct, ProductsState } from '../../store/product/types'
+import { CartProduct } from '../../store/cart/types'
 import { useSelector } from 'react-redux'
 import CartItem from '../CartItem/CartItem'
 import api from '../../services/api'
 
 import styles from './cart_modal.module.scss'
 import { useState } from 'react'
+import { ApplicationState } from '../../store'
 
 export default function CartModal() {
-    const products: CartProduct[] = useSelector((state: ProductsState) => state.products)
-    const numberOfProducts: number = useSelector((state: ProductsState) => state.amountOfProducts)
-    const totalPrice: number = useSelector((state: ProductsState) => state.totalPrice)
+    const products: CartProduct[] = useSelector((state: ApplicationState) => state.cart.products)
+    const numberOfProducts: number = useSelector((state: ApplicationState) => state.cart.amountOfProducts)
+    const totalPrice: number = useSelector((state: ApplicationState) => state.cart.totalPrice)
     const [showing, setShowing] = useState(false)
 
     const openModal = async (): Promise<void> => {
@@ -20,10 +21,10 @@ export default function CartModal() {
         if (event.target.id == "cart_modal_open" || event.target.id == "close_modal") {
             setShowing(false)
         }
-        const response = await api.post("/auth/refreshToken", {}, {
-            withCredentials: true
-           })
-        console.log(response)
+        // const response = await api.post("/auth/refreshToken", {}, {
+        //     withCredentials: true
+        //    })
+        //console.log(response)
     }
 
     return (

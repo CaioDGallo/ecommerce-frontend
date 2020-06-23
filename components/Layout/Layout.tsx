@@ -8,7 +8,7 @@ import styles from './layout.module.scss'
 export default function Layout({ children }) {
     return (
         <div className={styles.container}>
-            <Provider store={store}>
+            {/* <Provider store={store}> */}
                 <div className={styles.app}>
                     <Head>
                         <link rel="shortcut icon" href="/favicon.ico" />
@@ -17,7 +17,7 @@ export default function Layout({ children }) {
                     <main>{children}</main>
                     <Footer />
                 </div>
-            </Provider>
+            {/* </Provider> */}
         </div>
     )
 }
