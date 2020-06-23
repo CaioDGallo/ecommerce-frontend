@@ -1,5 +1,5 @@
 import Product from "../Product/Product"
-import { Product as IProduct } from '../../store/product/types'
+import { Product as IProduct } from '../../store/cart/types'
 
 import styles from './product_list.module.scss'
 
