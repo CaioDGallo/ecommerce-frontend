@@ -7,16 +7,10 @@ import api from '../services/api'
 import styles from "../style/home_page.module.scss"
 import { useEffect, useState } from "react"
 
-interface IIndexProps {
-  products: IProduct[]
-}
-
-const Index = (props: IIndexProps) => {
-  const [products, setProducts] = useState(props.products)
+const Index = () => {
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
-    setProducts(props.products)
-
     async function loadProductsFromAPI() {
       if (products.length == 0) {
         try {
@@ -28,7 +22,11 @@ const Index = (props: IIndexProps) => {
       }
     }
 
-    loadProductsFromAPI()
+    setInterval(() => {
+      loadProductsFromAPI()
+    }, 10000)
+
+    //loadProductsFromAPI()
   })
 
   return (
@@ -38,24 +36,10 @@ const Index = (props: IIndexProps) => {
         <h2>Artesanais</h2>
         <p>Uma <strong>coleção exclusiva de produtos</strong> artesanais e sustentáveis.</p>
       </div>
-      <ProductList products={props.products} />
+      <ProductList products={products} />
       <Contact />
     </Layout>
   )
-}
-
-Index.getInitialProps = async () => {
-  let products: IProduct[] = [];
-  try {
-    const apiResponse = await api.get('/products')
-    products = apiResponse.data as IProduct[]
-  } catch (error) {
-    console.error(error);
-  }
-
-  return {
-    products
-  }
 }
 
 export default Index

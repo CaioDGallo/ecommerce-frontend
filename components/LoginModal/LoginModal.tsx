@@ -6,7 +6,8 @@ import { FormHandles, SubmitHandler } from '@unform/core'
 import { IModalTypeProps } from '../Modal/Modal'
 import api from '../../services/api'
 import { useDispatch } from 'react-redux';
-import { AuthTypes, AuthAction } from '../../store/auth/types';
+import { AuthTypes, AuthAction, AuthUser } from '../../store/auth/types';
+import { AxiosResponse } from 'axios';
 
 interface ISignIn {
     email_signin: string
@@ -28,74 +29,68 @@ export default function LoginModal(props: IModalTypeProps) {
         setShowing(true)
     }
 
-    function closeModal(event = null) {
-        if(event){
+    function closeModal(event = null): void{
+        if (event) {
             if (event.target.id == "login_modal_open" || event.target.id == "close_modal") {
                 setShowing(false)
             }
-        }else{
+        } else {
             setShowing(false)
         }
     }
 
-    function successfulSignIn(user){
-        const refreshTokeAction: AuthAction = {
-            type: AuthTypes.REFRESH_TOKEN,
+    function successfulSignIn(user: AuthUser): void{
+        api.defaults.headers.common = {'Authorization': `Bearer ${user.accessToken}`}
+        const setUserDataAction: AuthAction = {
+            type: AuthTypes.SET_USER_DATA,
             refreshToken: null,
+            logout: null,
             actionUser: {
                 _id: user._id,
-                username: user.usermame,
-                access_token: user.accessToken
+                username: user.username,
+                accessToken: user.accessToken
             },
         }
-        dispatch(refreshTokeAction)
+        dispatch(setUserDataAction)
         closeModal()
     }
 
     useImperativeHandle(props.modalReference, () => ({ openModal }))
 
-    const handleSignInSubmit: SubmitHandler<ISignIn> = async (data: ISignIn) => {
+    const handleSignInSubmit: SubmitHandler<ISignIn> = async (data: ISignIn): Promise<void> => {
         const signIn = { username: data.email_signin, password: data.password_signin }
         //Test Credentials caiogallo88 @Test123
-        
+
         await api.post("/auth/signin", signIn, { withCredentials: true })
-        .then((response) => {
-            console.log(response);
-            if (response.status == 201) {
-                //success - dismiss modal and do the needed changes
-                successfulSignIn(response.data)
-            } else {
-                setErrorMessage(response.data.message)
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            setErrorMessage(error.response.data.message)
-        })
+            .then((response: AxiosResponse<AuthUser>) => {
+                if (response.status == 201) {
+                    successfulSignIn(response.data)
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                setErrorMessage(error.response.data.message)
+            })
     };
 
-    const handleSignUpSubmit: SubmitHandler<ISignUp> = async (data: ISignUp) => {
+    const handleSignUpSubmit: SubmitHandler<ISignUp> = async (data: ISignUp): Promise<void> => {
         const signUp = { username: data.email_signup, password: data.password_signup }
         //Test Credentials caiogallo88 @Test123
 
         await api.post("/auth/signup", signUp, { withCredentials: true })
-        .then(async (response) => {
-            if (response.status == 201) {
-                const response_signin = await api.post("/auth/signin", { username: data.email_signup, password: data.password_signup }, { withCredentials: true })
-                console.log(response_signin)
+            .then(async (response: AxiosResponse<AuthUser>) => {
                 if (response.status == 201) {
-                    successfulSignIn(response.data)
-                }else{
-                    setErrorMessage(response.data.message)
+                    const response_signin = await api.post("/auth/signin", { username: data.email_signup, password: data.password_signup }, { withCredentials: true })
+                    console.log(response_signin)
+                    if (response.status == 201) {
+                        successfulSignIn(response.data)
+                    }
                 }
-            } else {
-                setErrorMessage(response.data.message)
-            }
-        })
-        .catch((error) => {
-            console.log(error.response);
-            setErrorMessage(error.response.data.message)
-        })
+            })
+            .catch((error) => {
+                console.log(error.response);
+                setErrorMessage(error.response.data.message)
+            })
     };
 
     return (

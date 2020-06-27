@@ -1,22 +1,22 @@
 import { AppProps } from 'next/app'
 
 import '../style/App.scss';
-import AuthComponent from '../services/auth'
-import { useEffect, useRef } from 'react';
+import AuthComponent from '../components/AuthComponent/AuthComponent'
+import { useEffect, useRef, MutableRefObject } from 'react';
 import { Provider } from 'react-redux';
 import store from '../store';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const parent = useRef(null)
+  const authComponentRef = useRef(null)
 
   useEffect(() => {
-    parent.current.startAuthComponent()
-    parent.current.refreshAccessToken()
-  }, [parent])
+    authComponentRef.current.startAuthComponent()
+    authComponentRef.current.refreshAccessToken()
+  }, [authComponentRef])
 
   return (
     <Provider store={store}>
-      <AuthComponent parent={parent}/>
+      <AuthComponent parentReference={authComponentRef}/>
       <Component {...pageProps} />
     </Provider>
   );
