@@ -22,11 +22,7 @@ const Index = () => {
       }
     }
 
-    setInterval(() => {
-      loadProductsFromAPI()
-    }, 10000)
-
-    //loadProductsFromAPI()
+    loadProductsFromAPI()
   })
 
   return (

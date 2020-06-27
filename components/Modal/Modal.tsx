@@ -4,6 +4,7 @@ import { useRef, Ref } from "react"
 import styles from './modal.module.scss'
 import LoginModal from "../LoginModal/LoginModal"
 import NavAccountOptions from "../NavAccountOptions/NavAccountOptions"
+import DropdownMenu from "../DropdownMenu/DropdownMenu"
 
 export enum ModalTypes {
     CART_MODAL = "CartModal",
@@ -40,7 +41,9 @@ export default function Modal(props: IModalProps) {
             case ModalTypes.LOGIN_MODAL:
                 return (
                     <div className={styles.modal__container}>
-                        <NavAccountOptions handleClick={handleClick}/>
+                        <NavAccountOptions handleClick={handleClick}>
+                            <DropdownMenu />
+                        </NavAccountOptions>
                         <LoginModal modalReference={modalReference} />
                     </div>
                 );
