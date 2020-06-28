@@ -95,6 +95,7 @@ $color-dark: #343434;
       color: white;
       position: relative;
       cursor:pointer;
+      outline: none;
   
       &:hover {
         transition: 0.2s all;

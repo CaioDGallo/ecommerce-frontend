@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@bumaga/tabs": "^0.2.0",
     "@types/next": "^9.0.0",
     "@types/react": "^16.9.36",
     "@types/react-dom": "^16.9.8",

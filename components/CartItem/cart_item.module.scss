@@ -68,7 +68,8 @@
     width: 25px;
     height: 25px;
     margin: 0 1px;
-    cursor:pointer;
+    cursor: pointer;
+    outline: none;
   }
   .control__button:hover{
     background-color: rgb(31, 31, 31);

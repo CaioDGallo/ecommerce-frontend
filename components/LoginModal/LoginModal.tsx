@@ -8,6 +8,7 @@ import api from '../../services/api'
 import { useDispatch } from 'react-redux';
 import { AuthTypes, AuthAction, AuthUser } from '../../store/auth/types';
 import { AxiosResponse } from 'axios';
+import TabsComponent, { Panel } from '../TabsComponent/TabsComponent';
 
 interface ISignIn {
     email_signin: string
@@ -29,7 +30,7 @@ export default function LoginModal(props: IModalTypeProps) {
         setShowing(true)
     }
 
-    function closeModal(event = null): void{
+    function closeModal(event = null): void {
         if (event) {
             if (event.target.id == "login_modal_open" || event.target.id == "close_modal") {
                 setShowing(false)
@@ -39,8 +40,8 @@ export default function LoginModal(props: IModalTypeProps) {
         }
     }
 
-    function successfulSignIn(user: AuthUser): void{
-        api.defaults.headers.common = {'Authorization': `Bearer ${user.accessToken}`}
+    function successfulSignIn(user: AuthUser): void {
+        api.defaults.headers.common = { 'Authorization': `Bearer ${user.accessToken}` }
         const setUserDataAction: AuthAction = {
             type: AuthTypes.SET_USER_DATA,
             refreshToken: null,
@@ -96,21 +97,41 @@ export default function LoginModal(props: IModalTypeProps) {
     return (
         <div id={showing ? "login_modal_open" : "login_modal_hidden"} className={showing ? styles.modal__open : styles.modal__hidden} onClick={(event) => closeModal(event)}>
             <div className={showing ? styles.modal__content__open : styles.modal__content__hidden}>
-                <p>Test Modal Login</p>
-                <h2>{errorMessage}</h2>
-                <Form ref={formRef} onSubmit={handleSignUpSubmit}>
-                    <Input name="email_signup" />
-                    <Input name="password_signup" type="password" />
+                <TabsComponent>
+                    <Panel>
+                        <h2>{errorMessage}</h2>
+                        <Form ref={formRef} onSubmit={handleSignInSubmit}>
+                            <div className={styles.form__container}>
+                                <label>
+                                    E-mail:
+                                    <Input name="email_signin" />
+                                </label>
+                                <label>
+                                    Senha:
+                                    <Input name="password_signin" type="password" />
+                                </label>
+                                <button className={styles.login__button} type="submit">Fazer Login</button>
+                            </div>
+                        </Form>
+                    </Panel>
+                    <Panel>
+                        <h2>{errorMessage}</h2>
+                        <Form ref={formRef} onSubmit={handleSignUpSubmit}>
+                            <div className={styles.form__container}>
+                                <label>
+                                    E-mail:
+                                    <Input name="email_signup" />
+                                </label>
+                                <label>
+                                    Senha:
+                                    <Input name="password_signup" type="password" />
+                                </label>
 
-                    <button type="submit">Sign up</button>
-                </Form>
-
-                <Form ref={formRef} onSubmit={handleSignInSubmit}>
-                    <Input name="email_signin" />
-                    <Input name="password_signin" type="password" />
-
-                    <button type="submit">Sign in</button>
-                </Form>
+                                <button className={styles.login__button} type="submit">Cadastrar-se</button>
+                            </div>
+                        </Form>
+                    </Panel>
+                </TabsComponent>
             </div>
         </div>
     );
