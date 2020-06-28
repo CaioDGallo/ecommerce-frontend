@@ -43,6 +43,10 @@
     font-weight: bold;
     align-self: flex-end;
     margin-right: 12px;
+    cursor:pointer;
+  }
+  .close:hover{
+    color: #808080;
   }
 
   .buttons__section{
@@ -64,4 +68,9 @@
     width: 25px;
     height: 25px;
     margin: 0 1px;
+    cursor: pointer;
+    outline: none;
+  }
+  .control__button:hover{
+    background-color: rgb(31, 31, 31);
   }

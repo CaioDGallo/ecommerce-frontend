@@ -1,11 +1,8 @@
-.cart__container{
+.modal__container{
     display:flex;
     flex-direction: row;
     align-items: center;
-    .products__amount{
-        font-weight: bold;
-        color: #9094FF;
-    }
+    height: 40px;
 }
 
 p{

@@ -1,5 +1,5 @@
 import RouterProps, { withRouter } from 'next/router'
-import { Product as IProduct, ProductsTypes, ProductsAction } from '../../store/product/types';
+import { Product as IProduct, ProductsTypes, ProductsAction } from '../../store/cart/types';
 import { useDispatch } from 'react-redux'
 
 import styles from './product.module.scss'

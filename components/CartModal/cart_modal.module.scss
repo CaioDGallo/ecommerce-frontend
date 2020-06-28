@@ -153,6 +153,12 @@ ul{
     color: white;
     padding: 0;
     border: 0;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .checkout__button:hover{
+    background-color: #161616;
   }
   
   /* The Close Button */
@@ -167,7 +173,7 @@ ul{
   
   .close:hover,
   .close:focus {
-    color: #000;
+    color: #616161;
     text-decoration: none;
     cursor: pointer;
   }
@@ -191,3 +197,8 @@ ul{
     text-align: center;
     font-size: 1.5rem;
   }
+
+  .products__amount{
+    font-weight: bold;
+    color: #9094FF;
+}
